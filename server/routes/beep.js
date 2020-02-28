@@ -11,6 +11,7 @@ app.get('/beep', (req, res) => {
     Beep.find()
         .skip(from)
         .limit(limit)
+        .sort({date: 'desc'})
         .exec((err, beeps) => {
             if (err) {
                 return res.status(400).json({
@@ -18,20 +19,21 @@ app.get('/beep', (req, res) => {
                     err
                 });
             }
-            Beep.countDocuments((err, total_recors) => {
+            Beep.countDocuments((err, total_records) => {
                 res.json({
                     ok: true,
                     beeps,
-                    total_recors
+                    total_records
                 })
             });
         });
 });
 
 app.post('/beep', (req, res) => {
-    let { username } = req.body;
+    let { username, userId } = req.body;
     let beep = new Beep({
-        username
+        username,
+        userId
     });
 
     beep.save((err, beepDB) => {

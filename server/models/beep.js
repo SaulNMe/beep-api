@@ -6,6 +6,9 @@ let beepSchema = new Schema({
         type: String,
         required: [true, 'El nombre es necesario']
     },
+    userId: {
+        type: String
+    },
     date: {
         type: Date,
         default: Date.now
